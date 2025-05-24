@@ -12,7 +12,7 @@ const MyGroup = () => {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const res = await fetch(`https://hobbyt-hub-server.vercel.app/user/${userEmail}`);
+        const res = await fetch(`https://hobbyhub-server-phi.vercel.app/user/${userEmail}`);
         if (!res.ok) throw new Error("Failed to fetch groups");
         const data = await res.json();
         setGroups(data);
@@ -37,7 +37,7 @@ const MyGroup = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await fetch(`https://hobbyt-hub-server.vercel.app/groups/${id}`, {
+          const res = await fetch(`https://hobbyhub-server-phi.vercel.app/groups/${id}`, {
             method: 'DELETE'
           });
 

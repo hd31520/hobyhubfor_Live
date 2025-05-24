@@ -18,7 +18,7 @@ const GroupDetails = () => {
             User_Name: name,
         }
 
-        fetch(`https://hobbyt-hub-server.vercel.app/groups/addmember/${groupId}`, {
+        fetch(`https://hobbyhub-server-phi.vercel.app/groups/addmember/${groupId}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newMember),

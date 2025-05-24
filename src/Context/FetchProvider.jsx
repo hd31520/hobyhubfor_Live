@@ -6,7 +6,7 @@ const FetchProvider = ({ children }) => {
   const [featuredGroups, setFeaturedGroups] = useState([]);
 
   useEffect(() => {
-    fetch('  https://hobbyt-hub-server.vercel.app/groups')
+    fetch('  https://hobbyhub-server-phi.vercel.app/groups')
       .then(res => res.json())
       .then(data => {
         setFeaturedGroups(data);
