@@ -44,7 +44,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'groupDetails/:id',
-                  loader: ({ params }) => fetch(`http://localhost:3000/group/${params.id}`),
+                  loader: ({ params }) => fetch(`https://hobbyt-hub-server.vercel.app/group/${params.id}`),
                 element: <GroupDetails></GroupDetails>,
                 
             }

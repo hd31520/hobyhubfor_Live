@@ -1,22 +1,9 @@
-import React, { use, useState } from "react";
+import React, { use } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { AuthContext } from "../../Context/AuthContext";
 
 export default function Register() {
-
-  const {CreateUser} = use(AuthContext);
-
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    photoURL: "",
-    password: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const { CreateUser } = use(AuthContext);
 
   const validatePassword = (password) => {
     const hasUppercase = /[A-Z]/.test(password);
@@ -27,7 +14,12 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, email, password } = formData;
+
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const photoURL = form.photoURL.value;
+    const password = form.password.value;
 
     if (!validatePassword(password)) {
       toast.error("Password must contain uppercase, lowercase letters and be 6+ chars.");
@@ -39,15 +31,13 @@ export default function Register() {
       return;
     }
 
-    CreateUser(email,password)
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      toast.success(`Registered successfully!`);
-    })
-    
+    CreateUser(email, password, name, photoURL)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        toast.success("Registered successfully!");
+      });
 
-  
     setTimeout(() => {
       window.location.href = "/";
     }, 1500);
@@ -61,8 +51,6 @@ export default function Register() {
           type="text"
           name="name"
           placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
           className="w-full p-2 border rounded"
           required
         />
@@ -70,8 +58,6 @@ export default function Register() {
           type="email"
           name="email"
           placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
           className="w-full p-2 border rounded"
           required
         />
@@ -79,16 +65,12 @@ export default function Register() {
           type="text"
           name="photoURL"
           placeholder="Photo URL"
-          value={formData.photoURL}
-          onChange={handleChange}
           className="w-full p-2 border rounded"
         />
         <input
           type="password"
           name="password"
           placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
           className="w-full p-2 border rounded"
           required
         />
@@ -100,13 +82,12 @@ export default function Register() {
         </button>
       </form>
       <p className="mt-4 text-sm">
-        Already have an account?
+        Already have an account?{" "}
         <a href="/login" className="text-blue-500 underline">
           Login here
         </a>
-
       </p>
-       <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 }
