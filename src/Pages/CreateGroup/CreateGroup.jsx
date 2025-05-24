@@ -40,7 +40,7 @@ const CreateGroup = () => {
     ],
    
   };
-fetch('https://hobbyt-hub-server.vercel.app/groups/add',{
+fetch('http://localhost:3000/groups/add',{
     method: 'POST',
   headers: {
     'Content-Type': 'application/json',

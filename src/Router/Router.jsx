@@ -10,6 +10,7 @@ import MyGroup from "../Pages/MyGroup/MyGroup"
 import Root from "../LayOut/Root";
 import GroupDetails from "../Pages/GroupDetails/GroupDetails";
 import PrivetRoutes from "./PrivetRoutes";
+import UpdateDetails from "../Pages/UpdateDetails/UpdateDetails";
 
 
 
@@ -37,17 +38,22 @@ const router = createBrowserRouter([
             },
             {
                 path: 'createGroup',
-                element: <CreateGroup></CreateGroup>
+                element: <PrivetRoutes><CreateGroup></CreateGroup></PrivetRoutes>
             },
             {
                 path: 'myGroup',
-                Component: MyGroup
+                element: <PrivetRoutes><MyGroup></MyGroup></PrivetRoutes>
             },
             {
                 path: 'groupDetails/:id',
-                  loader: ({ params }) => fetch(`  https://hobbyt-hub-server.vercel.app/group/${params.id}`),
+                  loader: ({ params }) => fetch(`  http://localhost:3000/group/${params.id}`),
                 element: <PrivetRoutes><GroupDetails></GroupDetails></PrivetRoutes>,
                 
+            },
+            {
+                path: 'updateGroup/:id',
+                 loader: ({ params }) => fetch(`http://localhost:3000/group/${params.id}`),
+                 element: <PrivetRoutes><UpdateDetails></UpdateDetails></PrivetRoutes>,
             }
         ]
     },
