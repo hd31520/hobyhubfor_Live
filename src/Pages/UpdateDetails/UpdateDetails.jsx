@@ -57,7 +57,7 @@ const UpdateDetails = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                 fetch(`http://localhost:3000/groups/${data._id}`, {
+                 fetch(`https://hobbyt-hub-server.vercel.app/groups/${data._id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
