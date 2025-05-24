@@ -1,12 +1,54 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { useLoaderData } from 'react-router';
+import { AuthContext } from '../../Context/AuthContext';
 
 const GroupDetails = () => {
+    const { user, loading } = useContext(AuthContext)
     const data = useLoaderData();
     const [activeTab, setActiveTab] = useState('About');
     const [joined, setJoined] = useState(false);
     const tabs = ['About', 'Discussion', 'Members', 'Media']
+    const email = user.email;
+    const name = user.displayName;
+    const handleAddJoin = (groupId) => {
 
+        const newMember = {
+            User_Email: email,
+            User_Name: name,
+        }
+
+        fetch(`https://hobbyt-hub-server.vercel.app/groups/addmember/${groupId}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newMember),
+        })
+            .then(res => res.json())
+            .then(data => {
+                  setJoined(true)
+                toast.success('Member added successfully!');
+            })
+            .catch(error => {
+                toast.error('Failed to add member.');
+            })
+
+
+    }
+     useEffect(() => {
+  if (data?.member_name && email) {
+    const verify = data.member_name.some(member => member.User_Email === email);
+    if (verify) {
+      setJoined(true);
+    }
+  }
+}, [data, email]);
+   
+   
+
+
+    if (loading) {
+        return <span className="loading loading-bars loading-xl"></span>
+    }
     return (
         <div className="min-h-screen bg-base-100 flex flex-col items-center">
             {/* Banner */}
@@ -127,15 +169,10 @@ const GroupDetails = () => {
             </div>
 
             {/* Join Button */}
-            <div className="w-full max-w-5xl px-4 mt-4 flex justify-end">
+            <div className="w-full max-w-5xl px-4 mt-4 flex justify-center mb-5">
                 <button
                     className={`btn ${joined ? 'btn-disabled' : 'btn-success'}`}
-                    onClick={() => {
-                        if (!joined) {
-                            console.log('Join group clicked');
-                            setJoined(true);
-                        }
-                    }}
+                    onClick={() => handleAddJoin(data._id)}
                 >
                     {joined ? 'Joined' : 'Join Group'}
                 </button>

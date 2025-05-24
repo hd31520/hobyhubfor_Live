@@ -77,8 +77,8 @@ const signInWithGoogle = () => {
         CreateUser,
         singInUser,
         user,
-        signOutUser,
         loading,
+        signOutUser,
         forgetUser,
         signInWithGitHub,
         signInWithGoogle
