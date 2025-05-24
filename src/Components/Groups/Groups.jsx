@@ -12,7 +12,7 @@ const Groups = ({ data }) => {
                         <h3 className="text-lg font-semibold text-gray-800">{group?.Group_Name}</h3>
                     </div>
                     <div className='flex p-2 justify-center items-center'>
-                        <Link to={`/groupDetails/${group?._id}`} className='btn btn-primary'>View Group Details</Link>
+                        <Link to={`/groupDetails/${group?._id}`} className='btn btn-primary'>See More</Link>
                     </div>
                 </div>
             ))}
